@@ -13,26 +13,21 @@ from spacy import displacy
 
 pd.set_option('display.max_colwidth', 200)
 
-nlp = spacy.load("en_core_web_sm")
 
-# sample text
-text = "6 injured in crash this morning." \
-       ""
-doc = nlp(text)
+def num_patterns(txt):
 
-# print([token.pos_ for token in doc])
+	nlp = spacy.load("en_core_web_sm")
+	doc = nlp(txt)
 
-# define the pattern
+	# Matcher class object
+	matcher = Matcher(nlp.vocab)
+	matcher.add("matching", None, [{'POS': 'NUM'}, {'POS': 'VERB'}], [{'POS': 'NUM'}, {'POS': 'NOUN'}])
 
-pattern = [{'POS': 'NUM'}, {'POS': 'VERB'}]
+	matches = matcher(doc)
 
-# Matcher class object
+	for match_id, start, end in matches:
+		span = doc[start:end]
+		print(span.text)
 
-matcher = Matcher(nlp.vocab)
-matcher.add("matching", None, pattern)
+	return span.text
 
-matches = matcher(doc)
-
-for match_id, start, end in matches:
-    span = doc[start:end]
-    print(span.text)
