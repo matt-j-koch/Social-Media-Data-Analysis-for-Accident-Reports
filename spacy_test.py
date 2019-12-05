@@ -27,7 +27,7 @@ def num_patterns(txt):
 
 	for match_id, start, end in matches:
 		span = doc[start:end]
-		print(span.text)
+		# print(span.text)
 
 	return span.text
 
