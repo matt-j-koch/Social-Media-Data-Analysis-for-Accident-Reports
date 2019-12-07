@@ -14,7 +14,7 @@ from spacy import displacy
 pd.set_option('display.max_colwidth', 200)
 
 
-def num_patterns(txt):
+def location_tagger(txt):
 
 	nlp = spacy.load("en_core_web_sm")
 	doc = nlp(txt)
